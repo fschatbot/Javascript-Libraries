@@ -75,6 +75,9 @@ const hexToRgb = e => {
         b = e.slice(5, 7);
     return `rgb(${s(r)}, ${s(g)}, ${s(b)})`
 };
+function tooltip(element,text){
+    element.setAttribute('title',text)
+}
 
 //input css
 //iframe function auto import function
@@ -85,6 +88,7 @@ let Dummy = {
 	matchany:function(string,match){return match.map(a=>string.match(a)).includes(true)},
 	isPhone:undefined,
 	OS:"Unknown OS",
+    InsertCss: function(css){let t=document.createElement("style");return t.appendChild(document.createTextNode(css)),document.head.appendChild(t),t},
 	fetchip: function (ip){let t=new XMLHttpRequest;return t.open("GET",`http://ip-api.com/json/${ip}?fields=66846719`,!1),t.setRequestHeader("Content-Type","application/json"),t.send(),JSON.parse(t.response)},
 	geolocation: ()=>{if (navigator.geolocation) navigator.geolocation.getCurrentPosition((o)=>{Dummy.lat=o.coords.latitude,Dummy.lon=o.coords.longitude});}
 }
