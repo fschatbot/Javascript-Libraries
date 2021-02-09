@@ -4,13 +4,6 @@
 /*     This script is under MIT License     */
 /*==========================================*/
 
-/* Sites That made a lot of this possible
-* https://www.ipify.org/
-* https://ip-api.com/
-*/
-
-
-
 //These are the functions for Math
 Math.PI2 = till => Number(Math.PI.toFixed(till||2))
 Math.randomNum = (max,min=0) => Math.floor(Math.random()*(max-min+1))+min;
