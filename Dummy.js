@@ -4,6 +4,7 @@
 /*     This script is under MIT License     */
 /*==========================================*/
 
+"use strict";
 //These are the functions for Math
 Math.PI2 = till => Number(Math.PI.toFixed(till||2))
 Math.randomNum = (max,min=0) => Math.floor(Math.random()*(max-min+1))+min;
@@ -30,20 +31,13 @@ Date.prototype.setPreset = function(preset) {
 Date.prototype.getFullMonth = function(){['Janurary','February','March','April','May','June','July','August','September','October','November','December'][this.getMonth()]}
 
 //These are the functions for Arrays
-Array.prototype.random=function(){return this[Math.randomNum(this.length-1)]};
-Array.prototype.last=function(){return this[this.length-1]};
-Array.prototype.isEmpty=function(){return"[]"==JSON.stringify(this)};
-Array.prototype.toNum=function(){return this.map(r=>isNaN(r)||isNaN(parseFloat(r))?r:parseFloat(r))};
+Array.prototype.random=function random(){return this[Math.randomNum(this.length-1)]};
+Array.prototype.last=function last(){return this[this.length-1]};
+Array.prototype.isEmpty=function empty(){return"[]"==JSON.stringify(this)};
+Array.prototype.toNum=function number(){return this.map(r=>isNaN(r)||isNaN(parseFloat(r))?r:parseFloat(r))};
 
 //Functions related to Objects
 Object.isEmpty=(obj=>JSON.stringify({})===JSON.stringify(obj));
-Object.forEach=(obj,callback)=>{for(let f in obj)callback(f)};
-
-//Get The parameter from url; To use: getparameter('expiredate'); How the url looks = https://www.example.com/?expiredate=tomorrow&isexpired=false
-const getparameter = (parameter) => {
-	let fetch = window.location.href.match(new RegExp(`[&?]${parameter}=([^&]*)`,'i'));
-	return fetch ? fetch[1] : null
-}
 
 //Pass in the element as a string and get a parsed element
 const createElm=html=>{const t=document.createElement("div");return t.innerHTML=html,t.removeChild(t.firstElementChild)};
@@ -56,8 +50,8 @@ document.onmouseleave = function(){cursourInfo.mouseonpage = false};
 document.onmousedown = function(){cursourInfo.clicking = true};
 document.onmouseup = function(){cursourInfo.clicking = false};
 document.onmousemove = (e) => {
-	cursourInfo.CursorX = (window.Event) ? e.pageX : event.clientX + (document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft);
-	cursourInfo.CursorY = (window.Event) ? e.pageY : event.clientY + (document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop);
+    cursourInfo.CursorX = (window.Event) ? e.pageX : event.clientX + (document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft);
+    cursourInfo.CursorY = (window.Event) ? e.pageY : event.clientY + (document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop);
 }
 
 //All Code here is for stuff related to colors
@@ -70,15 +64,16 @@ const hexToRgb = e => {
 };
 
 let Dummy = {
+    parameter:function parameter(parameter) {return window.location.href.match(new RegExp(`[&?]${parameter}=([^&]*)`,'i'))[1]},
     tooltip:function tooltip(element,text){element.setAttribute('title',text)},
-	rgb:function(r,g,b){return `rgb(${r},${g},${b})`},
-	matchany:function matchany(string,match){return Array.from(match).map(a=>string.match(a)).includes(true)},
+    rgb:function(r,g,b){return `rgb(${r},${g},${b})`},
+    matchany:function matchany(string,match){return Array.from(match).map(a=>string.match(a)).includes(true)},
     isPhone:['Android','webOS','iPhone','iPad','BlackBerry','Windows Phone'].map(a=>navigator.userAgent.match(a)).includes(true),
-	OS:"Unknown OS",
+    OS:"Unknown OS",
     Online:navigator.onLine,
     validUrl: function isValidURL(string) {return string.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g) !== null},
     InsertCss: function(css){let t=document.createElement("style");return t.appendChild(document.createTextNode(css)),document.head.appendChild(t),t},
-	geolocation: function(){if (navigator.geolocation) navigator.geolocation.getCurrentPosition((o)=>{Dummy.lat=o.coords.latitude,Dummy.lon=o.coords.longitude});}
+    geolocation: function(){if (navigator.geolocation) navigator.geolocation.getCurrentPosition((o)=>{Dummy.lat=o.coords.latitude,Dummy.lon=o.coords.longitude});}
 }
 //Checking the Operating System
 !function(){let i=i=>navigator.userAgent.match(i),n=i=>Dummy.OS=i;i("Win")?n("Windows"):i("Mac")?n("Macintosh"):i("Linux")?n("Linux"):i("Android")?n("Android"):i("like Mac")?n("iOS"):n(void 0)}();
