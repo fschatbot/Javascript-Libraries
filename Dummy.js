@@ -43,7 +43,7 @@ Array.prototype.isEmpty=function(){return"[]"==JSON.stringify(this)};
 Array.prototype.toNum=function(){return this.map(r=>isNaN(r)||isNaN(parseFloat(r))?r:parseFloat(r))};
 
 //Functions related to Objects
-Object.isEmpty=(obj=>"{}"==JSON.stringify(obj));
+Object.isEmpty=(obj=>JSON.stringify({})===JSON.stringify(obj));
 Object.forEach=(obj,callback)=>{for(let f in obj)callback(f)};
 
 //Get The parameter from url; To use: getparameter('expiredate'); How the url looks = https://www.example.com/?expiredate=tomorrow&isexpired=false
@@ -56,12 +56,12 @@ const getparameter = (parameter) => {
 const createElm=html=>{const t=document.createElement("div");return t.innerHTML=html,t.removeChild(t.firstElementChild)};
 
 //All the cursour Information is stored here
-let cursourInfo = {}
+let cursourInfo = {mouseonpage: false, CursorX: 0, CursorY: 0, clicking: false}
 if (window.Event) document.captureEvents(Event.MOUSEMOVE);
 document.onmouseenter = function(){cursourInfo.mouseonpage = true};
 document.onmouseleave = function(){cursourInfo.mouseonpage = false};
-document.onmousedown = function(){cursourInfo.cursourclicking = true};
-document.onmouseup = function(){cursourInfo.cursourclicking = false};
+document.onmousedown = function(){cursourInfo.clicking = true};
+document.onmouseup = function(){cursourInfo.clicking = false};
 document.onmousemove = (e) => {
 	cursourInfo.CursorX = (window.Event) ? e.pageX : event.clientX + (document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft);
 	cursourInfo.CursorY = (window.Event) ? e.pageY : event.clientY + (document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop);
@@ -75,26 +75,20 @@ const hexToRgb = e => {
         b = e.slice(5, 7);
     return `rgb(${s(r)}, ${s(g)}, ${s(b)})`
 };
-function tooltip(element,text){
-    element.setAttribute('title',text)
-}
-
-//input css
-//iframe function auto import function
 
 let Dummy = {
-	href: location.href,
+    tooltip:function tooltip(element,text){element.setAttribute('title',text)},
 	rgb:function(r,g,b){return `rgb(${r},${g},${b})`},
-	matchany:function(string,match){return match.map(a=>string.match(a)).includes(true)},
-	isPhone:undefined,
+	matchany:function matchany(string,match){return Array.from(match).map(a=>string.match(a)).includes(true)},
+    isPhone:['Android','webOS','iPhone','iPad','BlackBerry','Windows Phone'].map(a=>navigator.userAgent.match(a)).includes(true),
 	OS:"Unknown OS",
+    Online:navigator.onLine,
+    validUrl: function isValidURL(string) {return string.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g) !== null},
     InsertCss: function(css){let t=document.createElement("style");return t.appendChild(document.createTextNode(css)),document.head.appendChild(t),t},
-	fetchip: function (ip){let t=new XMLHttpRequest;return t.open("GET",`http://ip-api.com/json/${ip}?fields=66846719`,!1),t.setRequestHeader("Content-Type","application/json"),t.send(),JSON.parse(t.response)},
-	geolocation: ()=>{if (navigator.geolocation) navigator.geolocation.getCurrentPosition((o)=>{Dummy.lat=o.coords.latitude,Dummy.lon=o.coords.longitude});}
+	geolocation: function(){if (navigator.geolocation) navigator.geolocation.getCurrentPosition((o)=>{Dummy.lat=o.coords.latitude,Dummy.lon=o.coords.longitude});}
 }
-//Checking if the user is on a phone or not
-Dummy.isPhone=Dummy.matchany(navigator.userAgent,[/Android/i,/webOS/i,/iPhone/i,/iPad/i,/BlackBerry/i,/Windows Phone/i]);
 //Checking the Operating System
 !function(){let i=i=>navigator.userAgent.match(i),n=i=>Dummy.OS=i;i("Win")?n("Windows"):i("Mac")?n("Macintosh"):i("Linux")?n("Linux"):i("Android")?n("Android"):i("like Mac")?n("iOS"):n(void 0)}();
-//Fetch User IP and some other information
-fetch("https://api.ipify.org/").then(t=>t.text()).then(t=>{Dummy.IP=t,fetch(`http://ip-api.com/json/${t}?fields=1704443`).then(t=>t.json()).then(t=>{Dummy={...Dummy,...t}})});
+//Updating the Online or Offline thing in Dummy
+window.addEventListener('online', ()=>{Dummy.Online = navigator.onLine});
+window.addEventListener('offline', ()=>{Dummy.Online = navigator.onLine});
