@@ -69,7 +69,7 @@ Date.prototype.preset = function (preset) {
  * returns {string} - The name of the month
  */
 Date.prototype.getFullMonth = function () {
-	["Janurary", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][this.getMonth()];
+	return ["Janurary", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][this.getMonth()];
 };
 /*
  * Returns an array of the number of days in each month
