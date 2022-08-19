@@ -148,6 +148,16 @@ Array.prototype.first = function first() {
 Array.prototype.last = function last() {
 	return this[this.length - 1];
 };
+/*
+ * Rotates the array clockwise
+ * @param {number} times - The amount by which the array will be rotated
+ * @returns {array} - The rotated array
+ */
+Array.prototype.rotate = function rotate(times = 1) {
+	times -= this.length * Math.floor(times / this.length);
+	this.push.apply(this, this.splice(0, times));
+	return this;
+};
 
 //Functions related to Objects
 Object.isEmpty = (obj) => JSON.stringify({}) === JSON.stringify(obj);
@@ -155,17 +165,14 @@ Object.isEmpty = (obj) => JSON.stringify({}) === JSON.stringify(obj);
 //Functions related to Strings
 /*
  * Capitalizes the first letter of all the words in a string
- * @deprecated — A legacy feature for browser compatibility
- * @param {string} str - The string to be converted
  * @returns {string} - The converted string
  */
 String.prototype.title = function title() {
-	return this.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
+	return this.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substring(1).toLowerCase());
 };
 /*
  * Checks whetert he given string is a valid url or not
- * @param {string} str - The string to be checked
- * @param {number} method - Each method uses a different way of checking wheter the string is a valid url or not. Chose as per you liking
+ * @param {number} [method=0] - Each method uses a different way of checking wheter the string is a valid url or not. Chose as per you liking
  * @returns {boolean} - Returns true if the string is a valid url
  */
 String.prototype.isURL = function isURL(method = 0) {
@@ -198,11 +205,23 @@ String.prototype.isURL = function isURL(method = 0) {
 	}
 };
 //Functions related to Elements
+/*
+ * Sets tooltip to the element or returns the tooltip of the element
+ * @param {string} text - The text to be displayed in the tooltip
+ */
 Node.prototype.tooltip = function tooltip(text) {
-	if (text === void 0) {
-		return this.getAttribute("title");
+	return this.attr("title", text);
+};
+/*
+ * Sets/Returns the attribute of the element
+ * @param {string} attr - The attribute to be set/returned
+ * @param {string} [value] - The value to be set to the attribute
+ */
+Node.prototype.attr = function attr(attr, value) {
+	if (value === void 0) {
+		return this.getAttribute(attr);
 	} else {
-		this.setAttribute("title", text);
+		return this.setAttribute(attr, value);
 	}
 };
 
