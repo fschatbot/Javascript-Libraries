@@ -60,6 +60,7 @@ Date.prototype.preset = function (preset) {
 		.replace(/MM/g, t(this.getMonth() + 1))
 		.replace(/YYYY/g, this.getFullYear())
 		.replace(/DD/g, t(this.getDate()))
+		.replace(/DDD/g, t(this.getFullMonth()))
 		.replace(/hh/g, t(this.getHours()))
 		.replace(/mm/g, t(this.getMinutes()))
 		.replace(/ss/g, t(this.getSeconds()));
@@ -85,13 +86,6 @@ Date.prototype.getMonthArray = function () {
  */
 Array.prototype.random = function random() {
 	return this[Math.randomNum(this.length - 1)];
-};
-/*
- * returns the last element of an array
- * @returns {any} - The last element of the array
- */
-Array.prototype.last = function last() {
-	return this[this.length - 1];
 };
 /*
  * checks wheter the Array is empty or not
@@ -140,6 +134,20 @@ Array.prototype.randomize = function randomize() {
 Array.prototype.nodupes = function nodupes() {
 	return this.filter((e, i, a) => a.indexOf(e) == i);
 };
+/*
+ * returns the first element of an array
+ * @returns {any} - The first element of the array
+ */
+Array.prototype.first = function first() {
+	return this[0];
+};
+/*
+ * returns the last element of an array
+ * @returns {any} - The last element of the array
+ */
+Array.prototype.last = function last() {
+	return this[this.length - 1];
+};
 
 //Functions related to Objects
 Object.isEmpty = (obj) => JSON.stringify({}) === JSON.stringify(obj);
@@ -154,6 +162,49 @@ Object.isEmpty = (obj) => JSON.stringify({}) === JSON.stringify(obj);
 String.prototype.title = function title() {
 	return this.replace(/\w\S*/g, (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
 };
+/*
+ * Checks whetert he given string is a valid url or not
+ * @param {string} str - The string to be checked
+ * @param {number} method - Each method uses a different way of checking wheter the string is a valid url or not. Chose as per you liking
+ * @returns {boolean} - Returns true if the string is a valid url
+ */
+String.prototype.isURL = function isURL(method = 0) {
+	if (method === 1) {
+		try {
+			return Boolean(new URL(urlString));
+		} catch (e) {
+			return false;
+		}
+	} else if (method === 2) {
+		var a = document.createElement("a");
+		a.href = str;
+		return a.host && a.host != window.location.host;
+	} else if (method === 3) {
+		var inputElement = document.createElement("input");
+		inputElement.type = "url";
+		inputElement.value = urlString;
+
+		if (!inputElement.checkValidity()) {
+			return false;
+		} else {
+			return true;
+		}
+	} else if (method === 4) {
+		return !!/(?:https?):\/\/(\w+:?\w*)?(\S+)(:\d+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/.test(urlString);
+	} else if (method === 5) {
+		return string.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g) !== null;
+	} else {
+		throw new RangeError("Invalid method Number. Please use methods between 0 to 5");
+	}
+};
+//Functions related to Elements
+Node.prototype.tooltip = function tooltip(text) {
+	if (text === void 0) {
+		return this.getAttribute("title");
+	} else {
+		this.setAttribute("title", text);
+	}
+};
 
 /*
  * Converts a string to an element node
@@ -167,6 +218,7 @@ const createElm = (html) => {
 };
 
 //All the cursour Information is stored here
+`
 let cursourInfo = { mouseonpage: false, CursorX: 0, CursorY: 0, clicking: false };
 if (window.Event) document.captureEvents(Event.MOUSEMOVE);
 document.onmouseenter = function () {
@@ -184,56 +236,53 @@ document.onmouseup = function () {
 document.onmousemove = (e) => {
 	cursourInfo.CursorX = window.Event ? e.pageX : event.clientX + (document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft);
 	cursourInfo.CursorY = window.Event ? e.pageY : event.clientY + (document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop);
-};
-
-//All Code here is for stuff related to colors
-const HexToRgb = (e) => {
-	let s = (e) => parseInt(e, 16);
-	let r = s(e.slice(1, 3)),
-		g = s(e.slice(3, 5)),
-		b = s(e.slice(5, 7));
-	return { r, g, b };
-};
+};`;
 
 const sum = (arr) => {
 	return arr.reduce((a, b) => a + b, 0);
 };
 
-const RgbToHex = (r, g, b) => {
-	let s = (c) => (0 + c.toString(16)).slice(-2);
-	return "#" + s(r) + s(g) + s(b);
-};
-const Dummy_class = class Dummy {
-	static find_parameter(parameter) {
+class Device {
+	isPhone() {
+		return ["Android", "webOS", "iPhone", "iPad", "BlackBerry", "Windows Phone"].some((a) => navigator.userAgent.includes(a));
+	}
+	OS() {
+		let i = (i) => navigator.userAgent.match(i);
+
+		if (i("Win")) return "Windows";
+		else if (i("Mac")) return "Macintosh";
+		else if (i("Linux")) return "Linux";
+		else if (i("Android")) return "Android";
+		else if (i("like Mac")) return "iOS";
+
+		return "Unknown";
+	}
+	timezone() {
+		Intl.DateTimeFormat().resolvedOptions().timeZone;
+	}
+}
+
+class Page {
+	find_parameter(parameter) {
 		let href = window.location.href;
 		let regex = new RegExp(`[&?]${parameter}=([^&]*)`, "i");
 		let match = href.match(regex);
 		print(match);
 		return match[1];
 	}
-	static isinstance(variable, type_variable) {
-		return type(variable) == type_variable;
+	cookie_dict() {
+		let cookie_dict = {};
+		let cookies = document.cookie.split(";");
+		for (let i = 0; i < cookies.length; i++) {
+			let cookie = cookies[i].split("=");
+			cookie_dict[cookie[0].trim()] = cookie[1];
+		}
+		return cookie_dict;
 	}
-
-	static set_tooltip(element, text) {
-		element.setAttribute("title", text);
-	}
-	static timezone() {
-		Intl.DateTimeFormat().resolvedOptions().timeZone;
-	}
-	static rgb(r, g, b) {
-		return `rgb(${r},${g}${b}`;
-	}
-	static isPhone() {
-		return ["Android", "webOS", "iPhone", "iPad", "BlackBerry", "Windows Phone"].some((a) => navigator.userAgent.includes(a));
-	}
-	get in_iframe() {
+	in_iframe() {
 		return window.location != window.parent.location;
 	}
-	static isfunction(functionToCheck) {
-		return functionToCheck && {}.toString.call(functionToCheck) === "[object Function]";
-	}
-	static async is_online(fetch_check = false) {
+	async is_online(fetch_check = false) {
 		if (!fetch_check) {
 			return navigator.onLine;
 		} else {
@@ -243,51 +292,37 @@ const Dummy_class = class Dummy {
 				.catch((error) => false);
 		}
 	}
+}
+
+// Instesting functions that I am planning on adding
+const Dummy_class = class Dummy {
+	static isinstance(variable, type_variable) {
+		return type(variable) == type_variable;
+	}
+	static rgb(r, g, b) {
+		return `rgb(${r},${g}${b}`;
+	}
+	static isfunction(functionToCheck) {
+		return functionToCheck && {}.toString.call(functionToCheck) === "[object Function]";
+	}
 
 	static rand_bool() {
 		return Math.randomNum(100) % 2 == 0;
 	}
-};
-
-const Dummy = {
-	timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-	parameter: function search_parameter(parameter) {
-		return window.location.href.match(new RegExp(`[&?]${parameter}=([^&]*)`, "i"))[1];
-	},
-	tooltip: function set_tooltip(element, text) {
-		element.setAttribute("title", text);
-	},
-	rgb: function (r, g, b) {
-		return `rgb(${r},${g},${b})`;
-	},
-	find: function find_from_array(string, match_array) {
+	find_from_array(string, match_array) {
 		for (var i = 0; match_array.length >= i; i++) {
 			if (string.includes(match_array[i])) return { found: true, from: match_array[i] };
 		}
 		return { found: false };
-	},
-	isPhone: ["Android", "webOS", "iPhone", "iPad", "BlackBerry", "Windows Phone"].some((a) => navigator.userAgent.includes(a)),
-	OS: "Unknown OS",
-	in_iframe: window.location != window.parent.location,
-	Online: navigator.onLine,
-	validUrl: function ValidURL(string) {
-		return string.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g) !== null;
-	},
-	InsertCss: function (css) {
+	}
+	InsertCss(css) {
 		let t = document.createElement("style");
 		return t.appendChild(document.createTextNode(css)), document.head.appendChild(t), t;
-	},
-	geolocation: function track() {
+	}
+	geolocation() {
 		if (navigator.geolocation)
 			navigator.geolocation.getCurrentPosition((o) => {
 				(Dummy.lat = o.coords.latitude), (Dummy.lon = o.coords.longitude);
 			});
-	},
+	}
 };
-//Checking the Operating System
-!(function () {
-	let i = (i) => navigator.userAgent.match(i),
-		n = (i) => (Dummy.OS = i);
-	i("Win") ? n("Windows") : i("Mac") ? n("Macintosh") : i("Linux") ? n("Linux") : i("Android") ? n("Android") : i("like Mac") ? n("iOS") : n(void 0);
-})();
-//Updating the Online or Offline thing in Dummy
