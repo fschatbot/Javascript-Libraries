@@ -135,7 +135,7 @@ Array.prototype.randomize = function randomize() {
  * @returns {array} - The filtered array
  */
 Array.prototype.nodupes = function nodupes() {
-	return this.filter((e, i, a) => a.indexOf(e) == i);
+	return this.filter((element, index, array) => array.indexOf(element) == index);
 };
 /*
  * returns the first element of an array
