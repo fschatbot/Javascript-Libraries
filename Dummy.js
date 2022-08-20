@@ -153,10 +153,10 @@ Array.prototype.last = function last() {
  * @param {number} times - The amount by which the array will be rotated
  * @returns {array} - The rotated array
  */
-Array.prototype.rotate = function rotate(times = 1) {
-	times -= this.length * Math.floor(times / this.length);
-	this.push.apply(this, this.splice(0, times));
-	return this;
+Array.prototype.rotateRight = function (times) {
+	let arr = [...this];
+	arr.slice(times).concat(arr.slice(0, times));
+	return arr;
 };
 
 //Functions related to Objects
