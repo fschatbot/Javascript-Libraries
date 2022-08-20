@@ -149,13 +149,13 @@ Array.prototype.last = function last() {
 	return this[this.length - 1];
 };
 /*
- * Rotates the array clockwise
+ * Rotates the array right side
  * @param {number} times - The amount by which the array will be rotated
  * @returns {array} - The rotated array
  */
-Array.prototype.rotateRight = function (times) {
+Array.prototype.rotate = function (times) {
 	let arr = [...this];
-	arr.slice(times).concat(arr.slice(0, times));
+	(times ?? 1).times(() => arr.unshift(arr.pop()));
 	return arr;
 };
 
