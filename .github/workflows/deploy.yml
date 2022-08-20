@@ -1,0 +1,49 @@
+# Huge thx to https://github.com/ad-m/github-push-action
+
+name: Deploy Site on fschatbot.github.io
+
+on:
+  push:
+    branch: [master]
+
+jobs:
+  cancel-previous-runs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ secrets.SECRET_TOKEN }}
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal access token.
+          fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+      - name: Minify Each File
+        run: |
+          npm install @node-minify/cli @node-minify/uglify-js --save
+          npx node-minify --compressor uglify-js --input 'cookies.js' --output 'cookies.min.js'
+          npx node-minify --compressor uglify-js --input 'data_recorder.js' --output 'data_recorder.min.js'
+          npx node-minify --compressor uglify-js --input 'Dummy.js' --output 'Dummy.min.js'
+          npx node-minify --compressor uglify-js --input 'internet.js' --output 'internet.min.js'
+          npx node-minify --compressor uglify-js --input 'Right_click.js' --output 'Right_click.min.js'
+      - name: Commit files
+        run: |
+          rm -rf .git
+          git init
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add -f cookies.js data_recorder.js Dummy.js internet.js Right_click.js
+          git add -f cookies.min.js data_recorder.min.js Dummy.min.js internet.min.js Right_click.min.js
+          git commit -m "Upgraded till commit: ${{ github.event.commits[0].id }}"
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.SECRET_TOKEN }}
+          branch: gh-pages
+          force: true
