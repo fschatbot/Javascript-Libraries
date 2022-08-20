@@ -107,6 +107,9 @@ Array.prototype.toNum = function number() {
  * @returns {array} - The chunked array
  */
 Array.prototype.chunk = function chunking(chunkSize) {
+	if (isNaN(Number(chunkSize))) throw new Error("chunkSize must be a number");
+	chunkSize = Number(chunkSize);
+
 	let chunks = [];
 	for (let i = 0; i <= this.length; i += chunkSize) {
 		chunks.push(this.slice(i, i + chunkSize));
@@ -154,9 +157,26 @@ Array.prototype.last = function last() {
  * @returns {array} - The rotated array
  */
 Array.prototype.rotate = function (times) {
+	if (isNaN(Number(index))) throw new Error("times must be a number");
+	times = Number(times);
+
 	let arr = [...this];
 	(times ?? 1).times(() => arr.unshift(arr.pop()));
 	return arr;
+};
+/*
+ * Inserts an element at the specified index
+ * @param {any} element - The element to be inserted
+ * @param {number} index - The index at which the element will be inserted
+ * @returns {array} - The array with the element inserted
+ */
+Array.prototype.insert = function (index, element) {
+	if (isNaN(Number(index))) throw new Error("Index must be a number");
+	index = Number(index);
+	if (index < 0 || index >= this.length) throw new Error("Index out of bounds");
+
+	this.splice(index, 0, element);
+	return this;
 };
 
 //Functions related to Objects
@@ -176,6 +196,10 @@ String.prototype.title = function title() {
  * @returns {boolean} - Returns true if the string is a valid url
  */
 String.prototype.isURL = function isURL(method = 0) {
+	if (isNaN(Number(method))) throw new Error("method must be a number");
+	method = Number(method);
+	if (method < 0 || method > 5) throw new RangeError("Invalid method Number. Please use methods between 0 to 5");
+
 	if (method === 1) {
 		try {
 			return Boolean(new URL(urlString));
