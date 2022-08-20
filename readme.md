@@ -21,6 +21,17 @@ https://fschatbot.github.io/Script/Right_click.min.js
 https://fschatbot.github.io/Script/Timer.min.js
 ```
 
+## Library Docs
+
+Here are links to documentation about each doc
+
+- [Dummy Doc](docs/dummy.md)
+- [cookies Doc](docs/cookies.md)
+- [data recorder Doc](docs/data_recorder.md)
+- [internet Doc](docs/internet.md)
+- [Context Menu Doc](docs/context_menu.md)
+- [Timer Doc](docs/timer.md)
+
 ### Dummy Library
 
 A powerful library which adds a lot of missing functions from standard JavaScript. Below is a list of all the functions in the library curently.
