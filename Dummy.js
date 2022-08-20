@@ -178,6 +178,33 @@ Array.prototype.insert = function (index, element) {
 	this.splice(index, 0, element);
 	return this;
 };
+/*
+ * Removes a perticular element from the array
+ * @param {any} element - The element to be removed
+ * @returns {array} - The array with the element removed
+ */
+Array.prototype.remove = function (element) {
+	let index = this.indexOf(element);
+	if (index == -1) return this;
+	this.splice(index, 1);
+	return this;
+};
+/*
+ * Removes all instances of the element from the array
+ * @param {any} element - The element to be removed
+ * @returns {array} - The array with the element removed
+ */
+Array.prototype.removeAll = function (element) {
+	var i = 0;
+	while (i < this.length) {
+		if (this[i] === element) {
+			this.splice(i, 1);
+		} else {
+			i++;
+		}
+	}
+	return this;
+};
 
 //Functions related to Objects
 Object.isEmpty = (obj) => JSON.stringify({}) === JSON.stringify(obj);
