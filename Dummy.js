@@ -337,7 +337,6 @@ class Page {
 		let href = window.location.href;
 		let regex = new RegExp(`[&?]${parameter}=([^&]*)`, "i");
 		let match = href.match(regex);
-		print(match);
 		return match[1];
 	}
 	cookie_dict() {
