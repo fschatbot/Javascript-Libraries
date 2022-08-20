@@ -157,9 +157,6 @@ Array.prototype.last = function last() {
  * @returns {array} - The rotated array
  */
 Array.prototype.rotate = function (times) {
-	if (isNaN(Number(index))) throw new Error("times must be a number");
-	times = Number(times);
-
 	let arr = [...this];
 	(times ?? 1).times(() => arr.unshift(arr.pop()));
 	return arr;
