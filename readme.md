@@ -1,6 +1,25 @@
-## Utility Libraries for use
+<div align="center">
 
-The main purpose of this library is to provide a set of utility libraries for use in other projects.
+# Utility Libraries
+
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&style=for-the-badge&logoColor=white)
+
+</div>
+
+The main purpose of this repo is to provide a set of utility libraries to be used in order projects.
+
+## CDN links
+
+Below are all the cdn links for the libraries.
+
+```
+https://fschatbot.github.io/Script/Dummy.min.js
+https://fschatbot.github.io/Script/cookies.min.js
+https://fschatbot.github.io/Script/data_recorder.min.js
+https://fschatbot.github.io/Script/internet.min.js
+https://fschatbot.github.io/Script/Right_click.min.js
+https://fschatbot.github.io/Script/Timer.min.js
+```
 
 ### Dummy Library
 
