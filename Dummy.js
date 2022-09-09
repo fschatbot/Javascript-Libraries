@@ -17,6 +17,7 @@ Math.PI2 = (till) => {
 	// Use of ?? makes sure that till is not undefined
 	return Number(PI.toFixed(till ?? 2));
 };
+Math.randomFloat = (max, min = 0) => Math.random() * (max - min + 1) + min;
 Math.randomNum = (max, min = 0) => Math.floor(Math.random() * (max - min + 1)) + min;
 Math.randomcolor = () => `rgb(${Math.randomNum(255)},${Math.randomNum(255)},${Math.randomNum(255)})`;
 /*
