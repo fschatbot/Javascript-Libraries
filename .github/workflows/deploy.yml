@@ -26,7 +26,7 @@ jobs:
           node-version: 16.x
       - name: Minify Each File
         run: |
-          npm install --save terser
+          npm install --save terser@5.15.0
           npx terser cookies.js -o cookies.min.js -c --ecma 5 --ie8 --timings
           npx terser data_recorder.js -o data_recorder.min.js -c --ecma 5 --ie8 --timings
           npx terser Dummy.js -o Dummy.min.js -c --ecma 5 --ie8 --timings
