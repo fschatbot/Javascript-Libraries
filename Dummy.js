@@ -220,10 +220,10 @@ String.prototype.title = function title() {
  * @param {number} [method=0] - Each method uses a different way of checking wheter the string is a valid url or not. Chose as per you liking
  * @returns {boolean} - Returns true if the string is a valid url
  */
-String.prototype.isURL = function isURL(method = 0) {
+String.prototype.isURL = function isURL(method = 1) {
 	if (isNaN(Number(method))) throw new Error("method must be a number");
 	method = Number(method);
-	if (method < 0 || method > 5) throw new RangeError("Invalid method Number. Please use methods between 0 to 5");
+	if (method <= 0 || method > 5) throw new RangeError("Invalid method Number. Please use methods between 1 to 5");
 
 	if (method === 1) {
 		try {
@@ -250,7 +250,7 @@ String.prototype.isURL = function isURL(method = 0) {
 	} else if (method === 5) {
 		return string.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g) !== null;
 	} else {
-		throw new RangeError("Invalid method Number. Please use methods between 0 to 5");
+		throw new RangeError("Invalid method Number. Please use methods between 1 to 5");
 	}
 };
 //Functions related to Elements
