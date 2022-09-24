@@ -273,6 +273,12 @@ Node.prototype.attr = function attr(attr, value) {
 		return this.setAttribute(attr, value);
 	}
 };
+/*
+ * Converts NodeList into array
+ */
+NodeList.prototype.array = function array() {
+	return [...this];
+};
 
 /*
  * Converts a string to an element node
