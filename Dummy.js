@@ -58,7 +58,7 @@ Number.prototype.times = function (callback, ...args) {
 Date.prototype.preset = function (preset) {
 	const t = (e) => ("0" + e).slice(-2);
 	return preset
-		.replace(/MMM/g, t(this.getFullMonth()))
+		.replace(/MMM/g, this.getFullMonth())
 		.replace(/MM/g, t(this.getMonth() + 1))
 		.replace(/YYYY/g, this.getFullYear())
 		.replace(/DD/g, t(this.getDate()))
