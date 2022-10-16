@@ -58,10 +58,10 @@ Number.prototype.times = function (callback, ...args) {
 Date.prototype.preset = function (preset) {
 	const t = (e) => ("0" + e).slice(-2);
 	return preset
+		.replace(/MMM/g, t(this.getFullMonth()))
 		.replace(/MM/g, t(this.getMonth() + 1))
 		.replace(/YYYY/g, this.getFullYear())
 		.replace(/DD/g, t(this.getDate()))
-		.replace(/DDD/g, t(this.getFullMonth()))
 		.replace(/hh/g, t(this.getHours()))
 		.replace(/mm/g, t(this.getMinutes()))
 		.replace(/ss/g, t(this.getSeconds()));
