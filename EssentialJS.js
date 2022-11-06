@@ -25,11 +25,11 @@ Math.randomcolor = () => `rgb(${Math.randomNum(255)},${Math.randomNum(255)},${Ma
  * @param {number} num - The number to be checked
  * @param {number} min - The minimum value of the range
  * @param {number} max - The maximum value of the range
- * @param {boolean} strict - Whether the range is inclusive or not
+ * @param {boolean} inclusive - Whether the range is inclusive or not
  * @returns {boolean} - Returns true if the number falls in the range
  */
-Math.range = (number, min, max, strict = false) => {
-	return strict ? number > min && number < max : number >= min && number <= max;
+Math.range = (number, min, max, inclusive = false) => {
+	return inclusive ? number > min && number < max : number >= min && number <= max;
 };
 
 /*
@@ -58,7 +58,8 @@ Number.prototype.times = function (callback, ...args) {
 Date.prototype.preset = function (preset) {
 	const t = (e) => ("0" + e).slice(-2);
 	return preset
-		.replace(/MMM/g, this.getFullMonth())
+		.replace(/MMMM/g, this.getFullMonth())
+		.replace(/MMM/g, this.getFullMonth().slice(0, 3))
 		.replace(/MM/g, t(this.getMonth() + 1))
 		.replace(/YYYY/g, this.getFullYear())
 		.replace(/DD/g, t(this.getDate()))
@@ -112,7 +113,7 @@ Array.prototype.chunk = function chunking(chunkSize) {
 	chunkSize = Number(chunkSize);
 
 	let chunks = [];
-	for (let i = 0; i <= this.length; i += chunkSize) {
+	for (let i = 0; i <= this.length - 1; i += chunkSize) {
 		chunks.push(this.slice(i, i + chunkSize));
 	}
 	return chunks;
