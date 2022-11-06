@@ -25,7 +25,7 @@ https://fschatbot.github.io/Script/Timer.min.js
 
 Here are links to documentation about each doc
 
-- [EssentialJS Doc](docs/EssentialJS.md)
+- [EssentialJS Doc](docs/EssentialJS.md) <-- Must Check out
 - [cookies Doc](docs/cookies.md)
 - [data recorder Doc](docs/data_recorder.md)
 - [internet Doc](docs/internet.md)
