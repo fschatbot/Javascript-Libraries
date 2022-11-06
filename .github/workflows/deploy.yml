@@ -29,7 +29,7 @@ jobs:
           npm install
           npx terser cookies.js -o cookies.min.js -c --ecma 5 --ie8 --timings
           npx terser data_recorder.js -o data_recorder.min.js -c --ecma 5 --ie8 --timings
-          npx terser Dummy.js -o Dummy.min.js -c --ecma 5 --ie8 --timings
+          npx terser EssentialJS.js -o EssentialJS.min.js -c --ecma 5 --ie8 --timings
           npx terser internet.js -o internet.min.js -c --ecma 5 --ie8 --timings
           npx terser Right_click.js -o Right_click.min.js -c --ecma 5 --ie8 --timings
           npx terser Timer.js -o Timer.min.js -c --ecma 5 --ie8 --timings
@@ -39,8 +39,8 @@ jobs:
           git init
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add -f cookies.js data_recorder.js Dummy.js internet.js Right_click.js Timer.js
-          git add -f cookies.min.js data_recorder.min.js Dummy.min.js internet.min.js Right_click.min.js Timer.min.js
+          git add -f cookies.js data_recorder.js EssentialJS.js internet.js Right_click.js Timer.js
+          git add -f cookies.min.js data_recorder.min.js EssentialJS.min.js internet.min.js Right_click.min.js Timer.min.js
           git commit -m "Upgraded till commit: ${{ github.event.commits[0].id }}"
       - name: Push changes
         uses: ad-m/github-push-action@master
