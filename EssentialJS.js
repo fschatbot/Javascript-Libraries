@@ -333,7 +333,7 @@ class Device {
 		return "Unknown";
 	}
 	timezone() {
-		Intl.DateTimeFormat().resolvedOptions().timeZone;
+		return Intl.DateTimeFormat().resolvedOptions().timeZone;
 	}
 }
 
