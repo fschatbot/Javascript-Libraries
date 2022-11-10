@@ -2,7 +2,7 @@
 
 # EssentialJS
 
-[CDN Link](https://fschatbot.github.io/Script/EssentialJS.min.js)
+[CDN Link](https://fschatbot.github.io/Javascript-Libraries/EssentialJS.min.js)
 
 </div>
 
@@ -10,17 +10,16 @@
 
 - [Description](#description)
 - [Adding to the project](#adding-to-the-project)
-  * [CDN Links](#cdn-links)
-  * [Adding it into HTML](#adding-it-into-html)
+  - [CDN Links](#cdn-links)
+  - [Adding it into HTML](#adding-it-into-html)
 - [Documentation](#documentation)
-  * [Math](#math)
-  * [Date](#date)
-  * [Array](#array)
-  * [Objects](#objects)
-  * [String](#string)
-  * [Node](#node)
-  * [Miscellaneous](#miscellaneous)
-
+  - [Math](#math)
+  - [Date](#date)
+  - [Array](#array)
+  - [Objects](#objects)
+  - [String](#string)
+  - [Node](#node)
+  - [Miscellaneous](#miscellaneous)
 
 ## Description
 
@@ -32,14 +31,14 @@ Bundle Size: ≤ 200B
 
 ### CDN Links
 
-Not Minified: https://fschatbot.github.io/Script/EssentialJS.js
+Not Minified: https://fschatbot.github.io/Javascript-Libraries/EssentialJS.js
 <br>
-Minified: https://fschatbot.github.io/Script/EssentialJS.min.js
+Minified: https://fschatbot.github.io/Javascript-Libraries/EssentialJS.min.js
 
 ### Adding it into HTML
 
 ```js
-<script type="text/javascript" src="https://fschatbot.github.io/Script/EssentialJS.min.js"></script>
+<script type="text/javascript" src="https://fschatbot.github.io/Javascript-Libraries/EssentialJS.min.js"></script>
 ```
 
 ## Documentation
